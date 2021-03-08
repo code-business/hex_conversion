@@ -17,7 +17,7 @@ const getParsedHexValue = (hexString, dataType) => {
       return new Date(`${month}-${day}-${year}`).getTime() || 0;
     case "INT":
       value = parseIntCustom(hexString);
-      return value >= 65536 ? value - 65536 : value;
+      return (value >= 65536 ? value - 65536 : value) || 0;
     case "TOD":
     case "UINT":
     case "USINT":
