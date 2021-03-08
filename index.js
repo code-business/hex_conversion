@@ -19,7 +19,6 @@ const getParsedHexValue = (hexString, dataType) => {
       value = parseIntCustom(hexString);
       return value >= 65536 ? value - 65536 : value;
     case "TOD":
-      return parseIntCustom(hexString) || 0;
     case "UINT":
     case "USINT":
     case "UDINT_R":
