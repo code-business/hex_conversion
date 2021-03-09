@@ -8,7 +8,7 @@ const getParsedHexValue = (hexString, dataType) => {
   //switch case based on the data type
   switch (dataType) {
     case "FLOAT":
-      return parseFloatCustom(hexString).toFixed(2);
+      return hex2float(hexString).toFixed(2);
     case "DATE":
       const month = parseIntCustom(hexString.slice(6, 8)).toString();
       const day = parseIntCustom(hexString.slice(8, 10)).toString();
@@ -67,6 +67,13 @@ const parseFloatCustom = (str) => {
   }
   //return decimal with sign
   return float * sign;
+};
+
+const hex2float = (num) => {
+  var sign = num & 0x80000000 ? -1 : 1;
+  var exponent = ((num >> 23) & 0xff) - 127;
+  var mantissa = 1 + (num & 0x7fffff) / 0x7fffff;
+  return sign * mantissa * Math.pow(2, exponent);
 };
 /**
  * @module hex_conversion
