@@ -21,7 +21,7 @@ const getParsedHexValue = (hexString, dataType) => {
     case "TOD":
     case "UINT":
     case "USINT":
-    case "UDINT_R":
+    case "UDINT":
     case "TIME":
       return parseIntCustom(hexString) || 0;
   }
