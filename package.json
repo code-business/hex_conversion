@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/code-business/hex_conversion/issues"
   },
-  "homepage": "https://github.com/code-business/hex_conversion#readme"
+  "homepage": "https://github.com/code-business/hex_conversion#readme",
+  "dependencies": {
+    "hex-to-binary": "^1.0.1"
+  }
 }

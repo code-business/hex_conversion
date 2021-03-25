@@ -1,3 +1,5 @@
+const hexToBinary = require("hex-to-binary");
+
 /**
  * Converts hexadecimal string to the specified data type
  * @param {string} hexString - hexadecimal string
@@ -16,7 +18,7 @@ const getParsedHexValue = (hexString, dataType) => {
       //convert date in epoch
       return new Date(`${month}-${day}-${year}`).getTime() || 0;
     case "INT":
-      value = parseIntCustom(hexString);
+      value = parseIntCustomHex(hexString);
       return (value >= 65536 ? value - 65536 : value) || 0;
     case "TOD":
     case "UINT":
@@ -32,41 +34,27 @@ const parseIntCustom = (hexString) => {
   return parseInt(hexString, 16);
 };
 
-const parseFloatCustom = (str) => {
-  var float = 0,
-    sign,
-    exp,
-    int = 0,
-    multi = 1;
-  //check if string consists of "0x"(prefix for hex string)
-  if (/^0x/.exec(str)) {
-    //convert hex string to integer
-    int = parseInt(str, 16);
-  } else {
-    //convert ASCII to integer
-    for (var i = str.length - 1; i >= 0; i -= 1) {
-      if (str.charCodeAt(i) > 255) {
-        return 0;
+const parseIntCustomHex = (hexString) => {
+  //if hex string is positive, convert it directly to integer
+  if (parseInt(`0x${hexString.charAt(2)}`, 16) < 8) {
+    return parseInt(hexString, 16);
+  }
+  //if hex string is negative, return 2's complement of hex string with negative sign(as integer)
+  else {
+    //convert hex to binary
+    let binary = hexToBinary(hexString.substring(2));
+    let onec = "";
+    //compute 1s complement
+    for (let i = 0; i < binary.length; i++) {
+      if (binary.charAt(i) === "1") {
+        onec += "0";
+      } else {
+        onec += "1";
       }
-      int += str.charCodeAt(i) * multi;
-      multi *= 256;
     }
+    //return 2s complement as integer with negative sign
+    return -(parseInt(onec, 2) + 1);
   }
-
-  //check sign of integer
-  sign = int >>> 31 ? -1 : 1;
-  //check exponent of integer
-  exp = ((int >>> 23) & 0xff) - 127;
-  //compute mantissa
-  const mantissa = ((int & 0x7fffff) + 0x800000).toString(2);
-
-  //convert mantissa binary to decimal
-  for (i = 0; i < mantissa.length; i += 1) {
-    float += parseInt(mantissa[i]) ? Math.pow(2, exp) : 0;
-    exp--;
-  }
-  //return decimal with sign
-  return float * sign;
 };
 
 const hex2float = (num) => {
