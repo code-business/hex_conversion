@@ -18,6 +18,7 @@ const getParsedHexValue = (hexString, dataType) => {
       //convert date in epoch
       return new Date(`${month}-${day}-${year}`).getTime() || 0;
     case "INT":
+    case "SINT":
       value = parseIntCustomHex(hexString);
       return (value >= 65536 ? value - 65536 : value) || 0;
     case "TOD":
