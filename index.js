@@ -9,6 +9,8 @@ const hexToBinary = require("hex-to-binary");
 const getParsedHexValue = (hexString, dataType) => {
   //switch case based on the data type
   switch (dataType) {
+    case "REAL":
+    case "LREAL":
     case "FLOAT":
       return hex2float(hexString).toFixed(2);
     case "DATE":
@@ -19,13 +21,15 @@ const getParsedHexValue = (hexString, dataType) => {
       return new Date(`${month}-${day}-${year}`).getTime() || 0;
     case "INT":
     case "SINT":
+    case "DINT":
       value = parseIntCustomHex(hexString);
-      return (value >= 65536 ? value - 65536 : value) || 0;
     case "TOD":
     case "UINT":
     case "USINT":
     case "UDINT":
     case "TIME":
+    case "WORD":
+    case "DWORD":
       return parseIntCustom(hexString) || 0;
   }
 };
