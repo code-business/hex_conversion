@@ -11,6 +11,7 @@ const getParsedHexValue = (hexString, dataType) => {
   switch (dataType) {
     case "REAL":
     case "LREAL":
+      return hex2double(hexString).toFixed(2);
     case "FLOAT":
       return hex2float(hexString).toFixed(2);
     case "DATE":
@@ -66,6 +67,20 @@ const hex2float = (num) => {
   var sign = num & 0x80000000 ? -1 : 1;
   var exponent = ((num >> 23) & 0xff) - 127;
   var mantissa = 1 + (num & 0x7fffff) / 0x7fffff;
+  return sign * mantissa * Math.pow(2, exponent);
+};
+
+const hex2double = (num) => {
+  let sign = parseInt(`0x${num.charAt(2)}`, 16) < 8 ? 1 : -1;
+  let binary = hexToBinary(num.substring(2));
+  let exponent = parseInt(binary.substring(1, 12), 2) - 1023;
+  let mant = binary.substring(12, 64);
+  let mantissa = 1.0;
+  for (let i = 0; i < 52; i++) {
+    if (mant.charAt(i) === "1") {
+      mantissa += Math.pow(2, parseInt(mant.charAt(i)) * -(i + 1));
+    }
+  }
   return sign * mantissa * Math.pow(2, exponent);
 };
 /**
