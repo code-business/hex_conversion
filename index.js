@@ -32,6 +32,8 @@ const getParsedHexValue = (hexString, dataType) => {
     case "WORD":
     case "DWORD":
       return parseIntCustom(hexString) || 0;
+    default:
+      return 0;
   }
 };
 
