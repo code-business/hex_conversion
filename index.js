@@ -23,7 +23,7 @@ const getParsedHexValue = (hexString, dataType) => {
     case "INT":
     case "SINT":
     case "DINT":
-      value = parseIntCustomHex(hexString);
+      return parseIntCustomHex(hexString);
     case "TOD":
     case "UINT":
     case "USINT":
