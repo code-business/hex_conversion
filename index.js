@@ -8,9 +8,10 @@ const hexToBinary = require("hex-to-binary");
  */
 const getParsedHexValue = (hexString, dataType) => {
   //switch case based on the data type
-  switch (dataType) {
+  switch (dataType.toUpperCase()) {
     case "REAL":
     case "LREAL":
+    case "DOUBLE":
       return hex2double(hexString).toFixed(2);
     case "FLOAT":
       return hex2float(hexString).toFixed(2);
@@ -33,7 +34,7 @@ const getParsedHexValue = (hexString, dataType) => {
     case "DWORD":
       return parseIntCustom(hexString) || 0;
     default:
-      return 0;
+      return parseIntCustom(hexString) || 0;
   }
 };
 
