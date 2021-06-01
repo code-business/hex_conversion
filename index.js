@@ -7,7 +7,6 @@ const hexToBinary = require("hex-to-binary");
  * @returns {*} converted value
  */
 const getParsedHexValue = (hexString, dataType) => {
-  hexString = hexString.replace(/^0+/, '');
   //switch case based on the data type
   switch (dataType.toUpperCase()) {
     case "REAL":
@@ -30,7 +29,8 @@ const getParsedHexValue = (hexString, dataType) => {
     case "UDINT":
     case "WORD":
     case "DWORD":
-      return parseIntCustomHex(hexString);
+      // removing preceding 0s
+      return parseIntCustomHex(hexString.replace(/^0+/, ''));
     case "TOD":
     case "TIME":
       return parseIntCustom(hexString) || 0;
