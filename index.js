@@ -12,7 +12,7 @@ const getParsedHexValue = (hexString, dataType) => {
     case "REAL":
     case "LREAL":
     case "DOUBLE":
-      return hex2double(hexString).toFixed(2);
+      return hex2double(hexString.substring(2)).toFixed(2);
     case "FLOAT":
       return hex2float(hexString).toFixed(2);
     case "DATE":
@@ -30,7 +30,7 @@ const getParsedHexValue = (hexString, dataType) => {
     case "WORD":
     case "DWORD":
       // removing preceding 0s
-      return parseIntCustomHex(hexString.replace(/^0+/, ''));
+      return parseIntCustomHex(hexString.substring(2).replace(/^0+/, ''));
     case "TOD":
     case "TIME":
       return parseIntCustom(hexString) || 0;
@@ -45,6 +45,7 @@ const parseIntCustom = (hexString) => {
 };
 
 const parseIntCustomHex = (hexString) => {
+  hexString = `0x${hexString}`
   //if hex string is positive, convert it directly to integer
   if (parseInt(hexString.charAt(2), 16) < 8) {
     return parseInt(hexString, 16);
@@ -75,6 +76,7 @@ const hex2float = (num) => {
 };
 
 const hex2double = (num) => {
+  num = `0x${num}`
   let sign = parseInt(num.charAt(2), 16) < 8 ? 1 : -1;
   let binary = hexToBinary(num.substring(2));
   let exponent = parseInt(binary.substring(1, 12), 2) - 1023;
@@ -90,9 +92,9 @@ const hex2double = (num) => {
 /**
  * @module hex_conversion
  */
-module.exports = {
-  getParsedHexValue,
-};
+// module.exports = {
+//   getParsedHexValue,
+// };
 
-// console.log(getParsedHexValue("fd", "INT"));
+console.log(getParsedHexValue("0xec78", "INT"));
 
