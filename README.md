@@ -45,3 +45,18 @@ A package for conversion of hexadecimal string to the specified data type.
    **Output**
 
    248.01
+
+Steps to publish package:
+
+1. Make necessary changes to code and push.
+2. On cmd, put "npm login"
+3. It will then ask for username, password, and OTP.
+   Username: gautam031098
+   Password: gautamnaik@336699
+   Email Id: gautam.naik1998@gmail.com
+   4.Then change version by running command: npm version patch/minor/major
+   patch: for backward compatible bug fixes=> 1.0.0 to 1.0.1
+   minor: for backward compatible new features=> 1.0.0 to 1.1.0
+   major: for changes that break backward compatibility=> 1.0.0 to 2.0.0
+4. Finally run command "npm publish". Here it will ask for OTP and then package will get published.
+5. Update the version of package wherever you are using the package in your project and then deploy.
