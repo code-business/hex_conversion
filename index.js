@@ -45,7 +45,7 @@ const parseIntCustom = (hexString) => {
 };
 
 const parseIntCustomHex = (hexString) => {
-  hexString = `0x${hexString}`
+  hexString = `0x${hexString === '' ? 0 : hexString}`
   //if hex string is positive, convert it directly to integer
   if (parseInt(hexString.charAt(2), 16) < 8) {
     return parseInt(hexString, 16);
@@ -76,7 +76,7 @@ const hex2float = (num) => {
 };
 
 const hex2double = (num) => {
-  num = `0x${num}`
+  num = `0x${num === '' ? 0 : num}`
   let sign = parseInt(num.charAt(2), 16) < 8 ? 1 : -1;
   let binary = hexToBinary(num.substring(2));
   let exponent = parseInt(binary.substring(1, 12), 2) - 1023;
@@ -92,9 +92,9 @@ const hex2double = (num) => {
 /**
  * @module hex_conversion
  */
-module.exports = {
-  getParsedHexValue,
-};
+// module.exports = {
+//   getParsedHexValue,
+// };
 
-// console.log(getParsedHexValue("0xec78", "INT"));
+console.log(getParsedHexValue("0x0000", "INT"));
 
