@@ -24,13 +24,13 @@ const getParsedHexValue = (hexString, dataType) => {
     case "INT":
     case "SINT":
     case "DINT":
-    case "UINT":
-    case "USINT":
-    case "UDINT":
     case "WORD":
     case "DWORD":
       // removing preceding 0s
       return parseIntCustomHex(hexString.substring(2).replace(/^0+/, ''));
+    case "UINT":
+    case "USINT":
+    case "UDINT":
     case "TOD":
     case "TIME":
       return parseIntCustom(hexString) || 0;
