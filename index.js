@@ -24,10 +24,10 @@ const getParsedHexValue = (hexString, dataType) => {
     case "INT":
     case "SINT":
     case "DINT":
-    case "WORD":
-    case "DWORD":
       // removing preceding 0s
       return parseIntCustomHex(hexString.substring(2).replace(/^0+/, ''));
+    case "WORD":
+    case "DWORD":
     case "UINT":
     case "USINT":
     case "UDINT":
@@ -92,9 +92,10 @@ const hex2double = (num) => {
 /**
  * @module hex_conversion
  */
-module.exports = {
-  getParsedHexValue,
-};
+// module.exports = {
+//   getParsedHexValue,
+// };
 
-// console.log(getParsedHexValue("0x0000", "INT"));
+console.log(getParsedHexValue("0xfcb9ffffcd64c1cd", "LREAL"));
+
 
