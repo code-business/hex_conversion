@@ -92,10 +92,10 @@ const hex2double = (num) => {
 /**
  * @module hex_conversion
  */
-// module.exports = {
-//   getParsedHexValue,
-// };
+module.exports = {
+  getParsedHexValue,
+};
 
-console.log(getParsedHexValue("0xfcb9ffffcd64c1cd", "LREAL"));
+// console.log(getParsedHexValue("0xfcb9ffffcd64c1cd", "LREAL"));
 
 
